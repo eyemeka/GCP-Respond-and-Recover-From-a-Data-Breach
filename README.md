@@ -1,4 +1,4 @@
-# GCP: Respond-and-Recover-From-a-Data-Breach
+# GCP: Respond and Recover From a Data Breach
 
 <h2 id="step1">Activity overview</h2>
 This lab is part of the capstone project. In this lab, you’ll apply your knowledge of cloud cybersecurity to identify and remediate vulnerabilities.
