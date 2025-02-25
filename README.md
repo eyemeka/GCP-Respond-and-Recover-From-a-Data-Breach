@@ -1,4 +1,4 @@
-#GCP: Respond-and-Recover-From-a-Data-Breach
+# GCP: Respond-and-Recover-From-a-Data-Breach
 
 <h2 id="step1">Activity overview</h2>
 This lab is part of the capstone project. In this lab, you’ll apply your knowledge of cloud cybersecurity to identify and remediate vulnerabilities.
@@ -9,7 +9,6 @@ There are also a number of challenges in the lab. A challenge is a task where yo
 
 By successfully completing this lab, you will demonstrate your ability to identify, prioritize, and remediate security vulnerabilities and misconfigurations within the cloud environment. These are essential skills to enhance the security posture of Google Cloud environments, reducing the risk of data breaches, unauthorized access, and other security incidents.
 
-&nbsp;
 <h2 id="step2">Scenario</h2>
 For the last year, you've been working as a junior cloud security analyst at Cymbal Retail. Cymbal Retail is a market powerhouse currently operating 170 physical stores and an online platform across 28 countries. They reported $15 billion in revenue in 2022, and currently employ 80,400 employees across the world.
 
@@ -23,8 +22,6 @@ Here’s how you'll do this task: <strong>First</strong> you’ll examine the vu
 One morning, the security team detects unusual activity within their systems. Further investigation into this activity quickly reveals that the company has suffered a massive security breach across its applications, networks, systems, and data repositories. Attackers gained unauthorized access to sensitive customer information, including credit card data, and personal details. This incident requires immediate attention and thorough investigation. The first step towards understanding the scope and impact of this breach is to gather information and analyze the available data.
 
 In this task, you'll examine the vulnerabilities and findings in Google Cloud Security Command Center to determine how the attackers gained access to the data, and which remediation steps to take.
-
-&nbsp;
 
 <strong>First</strong>, navigate to the Security Command Center to view an overview of the active vulnerabilities.
 <ol>
@@ -42,11 +39,7 @@ In this task, you'll examine the vulnerabilities and findings in Google Cloud Se
 </ol>
 The Payment Card Industry Data Security Standard (PCI DSS) is a set of security requirements that organizations must follow to protect sensitive cardholder data. As a retail company that accepts and processes credit card payments, Cymbal Retail must also ensure compliance with the PCI DSS requirements, to protect cardholder data.
 
-&nbsp;
-
 <img class="aligncenter size-full wp-image-1763" src="https://www.businesstoks.com.ng/wp-content/uploads/2024/10/Screenshot-154.png" alt="" width="1600" height="813" />
-
-&nbsp;
 
 As you examine the PCI DSS 3.2.1 report, notice that it lists the rules that are non-compliant, which relate to the data breach:
 <ul>
@@ -115,7 +108,7 @@ Overall, these findings indicate a critical lack of security controls and non-co
 
 <img class="aligncenter size-full wp-image-1764" src="https://www.businesstoks.com.ng/wp-content/uploads/2024/10/Screenshot-155.png" alt="" width="1600" height="664" />
 
-&nbsp;
+
 
 The following active findings pertaining to the storage bucket should be listed:
 <ul>
@@ -127,11 +120,11 @@ These findings indicate that the bucket is configured with a combination of secu
 
 I Also Checked The Google <strong>Google compute instance</strong> (screenshot below)
 
-&nbsp;
+
 
 <img class="aligncenter size-full wp-image-1765" src="https://www.businesstoks.com.ng/wp-content/uploads/2024/10/Screenshot-156.png" alt="" width="1600" height="814" />
 
-&nbsp;
+
 
 The following active findings that pertain to the virtual machine named <strong>cc-app-01</strong> should be listed:
 <ul>
@@ -141,7 +134,7 @@ The following active findings that pertain to the virtual machine named <strong>
  	<li><strong>Public IP address</strong>: This high severity finding is listed in the PCI DSS report and indicates that the virtual machine has a public IP address. This is a security risk as it allows anyone on the internet to connect to the virtual machine directly.</li>
  	<li><strong>Full API access</strong>: This medium severity finding is listed in the PCI DSS report, and indicates that the virtual machine has been granted full access to all Google Cloud APIs.</li>
 </ul>
-&nbsp;
+
 
 These findings indicate the virtual machine was configured in a way that left it very vulnerable to the attack.
 
@@ -158,7 +151,7 @@ To remediate these findings you'll shut the original VM (cc-app-01) down, and cr
 
 <img class="aligncenter size-full wp-image-1766" src="https://www.businesstoks.com.ng/wp-content/uploads/2024/10/Screenshot-157.png" alt="" width="1600" height="459" />
 
-&nbsp;
+
 
 The following active findings should be listed that pertain to the firewall:
 <ul>
@@ -168,15 +161,15 @@ The following active findings should be listed that pertain to the firewall:
 </ul>
 These findings are all listed in the PCI DSS report and highlight a significant security gap in the network's configuration. The lack of restricted access to RDP and SSH ports, coupled with disabled firewall rule logging, makes the network highly vulnerable to unauthorized access attempts and potential data breaches. You'll need to remediate these by removing the existing firewall overly broad rules, and replacing them with a firewall rule that allows SSH access only from the addresses that are used by Google Cloud's IAP SSH service
 
-&nbsp;
+
 
 <strong>NOW THAT YOU HAVE ANALYZED THE SECURITY VULNERABILITIES, IT’S TIME TO WORK ON REMEDIATING THE REPORT FINDINGS.</strong>
 
-&nbsp;
+
 <h2 id="step5">Task 2. Fix the Compute Engine vulnerabilities</h2>
 TO Fix the Compute Engine Vulnerabilities, I shut down the vulnerable VM <strong>cc-app-01</strong>, and create a new VM from a snapshot taken before the malware infection. VM snapshots are effective in restoring the system to a clean state, and ensures that the new VM will not be infected with the same malware that compromised the original VM.
 
-&nbsp;
+
 
 After I shut down the vulnerable VM <strong>cc-app-01</strong>
 
@@ -192,17 +185,17 @@ After Creating the New VM, <strong>I, Needed </strong>turn Secure Boot on for th
 
 <img class="aligncenter size-full wp-image-1768" src="https://www.businesstoks.com.ng/wp-content/uploads/2024/10/Screenshot-161.png" alt="" width="1600" height="369" />
 
-&nbsp;
+
 
 I Restarted The <strong>cc-app-02</strong> VM instance and the <strong>Secure Boot disabled</strong> finding has been <strong>remediated.</strong>
 
-&nbsp;
+
 <h2 id="step6">Task 3. Fix Cloud Storage bucket permissions</h2>
 In this task, you'll revoke public access to the storage bucket and switch to uniform bucket-level access control, significantly reducing the risk of data breaches. By removing all user permissions from the storage bucket, you can prevent unauthorized access to the data stored within.
 
 <img class="aligncenter size-full wp-image-1769" src="https://www.businesstoks.com.ng/wp-content/uploads/2024/10/Screenshot-162.png" alt="" width="1600" height="621" />
 
-&nbsp;
+
 
 There is a <strong>myfile.csv</strong> file in the publicly accessible bucket. This is the file that contains the sensitive information that was dumped by the malicious actor.
 
@@ -212,25 +205,25 @@ I Prevented Public Access To This Bucket
 
 <img class="aligncenter size-full wp-image-1770" src="https://www.businesstoks.com.ng/wp-content/uploads/2024/10/Screenshot-164.png" alt="" width="1600" height="762" />
 
-&nbsp;
+
 
 I Also Switched the access control to uniform and remove permissions for the <strong>allUsers</strong> principals from the storage bucket to enforce a single set of permissions for the bucket and its objects. I Also needed to ensure that users who rely on basic project roles to access the bucket won't lose their access.
 
 In the Above Task. I effectively prevented public access to the bucket, switched to uniform bucket-level access control, and removed all user permissions, addressing the <strong>Public bucket ACL</strong>, <strong>Bucket policy only disabled</strong>, and <strong>Bucket logging disabled</strong> findings.
 
-&nbsp;
+
 <h2 id="step7">Task 4. Limit firewall ports access</h2>
 In this task, you'll restrict access to RDP and SSH ports to only authorized source networks to minimize the attack surface and reduce the risk of unauthorized remote access.
 
 Exercise extreme caution before modifying overly permissive firewall rules. The rules may be allowing legitimate traffic, and improperly restricting it could disrupt critical operations. In this lab, ensure the Compute Engine virtual machine instances tagged with target tag "cc" remain accessible via SSH connections from the Google Cloud Identity-Aware Proxy address range (35.235.240.0/20). To maintain uninterrupted management access, create a new, limited-access firewall rule for SSH traffic before removing the existing rule allowing SSH connections from any address.
 
-&nbsp;
+
 <h2 id="step8">Task 5. Fix the firewall configuration</h2>
 In this task, you'll delete three specific VPC firewall rules that are responsible for allowing unrestricted access to certain network protocols, namely ICMP, RDP, and SSH, from any source within the VPC network. Then, you'll enable logging on the remaining firewall rules.
 
 <img class="aligncenter size-full wp-image-1771" src="https://www.businesstoks.com.ng/wp-content/uploads/2024/10/Screenshot-166.png" alt="" width="1600" height="838" />
 
-&nbsp;
+
 
 After Deleting three specific VPC firewall rules that are responsible for allowing unrestricted access to certain network protocols, I Enabled Logs for the New Firewall Rule I created to restrict Access To SSH.
 
